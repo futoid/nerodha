@@ -1,0 +1,34 @@
+
+# Cache & IDE Configs
+.idea/
+*.iwscore
+*.iws
+*.iml
+.classpath
+.project
+.settings/
+.factorypath
+bin/
+
+# Build Tools & Outputs
+target/
+build/
+.gradle/
+out/
+
+# Log Files & Runtime Data
+*.log
+logs/
+.spring-boot-devtools-lst
+
+# Environment & Sensitive Data
+.env
+.env.local
+*.jks
+*.p12
+
+# OS Generated Files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
