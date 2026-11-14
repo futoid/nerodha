@@ -36,6 +36,25 @@ public final class OrderBook {
         byId.put(order.id(), resting);
     }
 
+    public boolean contains(long orderId) { return byId.containsKey(orderId); }
+
+    public OptionalLong remainingOf(long orderId) {
+        RestingOrder r = byId.get(orderId);
+        return r == null ? OptionalLong.empty() : OptionalLong.of(r.remaining());
+    }
+
+    /** Fills a resting order and cleans up every structure that references it. */
+    void fill(RestingOrder resting, long qty) {
+        TreeMap<Long, PriceLevel> side = levels(resting.order().side());
+        long price = resting.order().priceTicks();
+        PriceLevel level = side.get(price);
+        level.fill(resting, qty);
+        if (resting.remaining() == 0) {
+            byId.remove(resting.order().id());
+            if (level.isEmpty()) side.remove(price);
+        }
+    }
+
     /** Returns true if the order was resting and is now removed. */
     public boolean cancel(long orderId) {
         RestingOrder resting = byId.remove(orderId);

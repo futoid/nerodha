@@ -33,4 +33,11 @@ final class PriceLevel {
         Iterator<RestingOrder> it = orders.values().iterator();
         return it.hasNext() ? it.next() : null;
     }
+
+    /** Reduces a resting order by qty; removes it from the queue once fully filled. */
+    void fill(RestingOrder r, long qty) {
+        r.fill(qty);
+        totalQuantity -= qty;
+        if (r.remaining() == 0) orders.remove(r.order().id());
+    }
 }

@@ -14,4 +14,10 @@ final class RestingOrder {
 
     Order order() { return order; }
     long remaining() { return remaining; }
+
+    void fill(long qty) {
+        if (qty <= 0 || qty > remaining)
+            throw new IllegalArgumentException("bad fill " + qty + " of remaining " + remaining);
+        remaining -= qty;
+    }
 }

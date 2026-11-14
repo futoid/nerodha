@@ -32,4 +32,8 @@ public record Order(long id, long accountId, String symbol, Side side,
         if (type == OrderType.MARKET) throw new IllegalStateException("market order has no price");
         return Math.multiplyExact(priceTicks, quantity);
     }
+
+    public Order withQuantity(long newQuantity) {
+        return new Order(id, accountId, symbol, side, type, priceTicks, newQuantity);
+    }
 }
